@@ -1,0 +1,14 @@
+
+# Ensure we're in the project root
+cd "$(dirname "$0")/.."
+
+echo '🏗️👷 Building your project before pushing'
+
+# Try to build
+pnpm run build ||
+(
+    echo '❌👷 Build failed. View the errors above.'
+    false;
+)
+
+echo '✅✅✅✅ Build successful! Pushing to branch... ✅✅✅✅'
