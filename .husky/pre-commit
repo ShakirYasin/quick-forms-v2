@@ -1,25 +1,24 @@
-
 # Ensure we're in the project root
 cd "$(dirname "$0")/.."
 
 echo '🏗️👷 Styling, testing and building your project before committing'
 
 # Check Prettier standards
-npm run check-format ||
+pnpm run check-format ||
 (
-    echo '🤢🤮 Prettier Check Failed. Run npm run format, add changes and try commit again.';
+    echo '🤢🤮 Prettier Check Failed. Run pnpm run format, add changes and try commit again.';
     false;
 )
 
 # Check ESLint Standards
-npm run check-lint ||
+pnpm run check-lint ||
 (
     echo '😤🏀 ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
     false; 
 )
 
 # Check tsconfig standards
-npm run check-types ||
+pnpm run check-types ||
 (
     echo '🤡😂 Failed Type check. Make the changes required above.'
     false;
