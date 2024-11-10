@@ -1,0 +1,8 @@
+.next/
+public/
+components/ui/
+node_modules/
+.husky/
+build/
+dist/
+

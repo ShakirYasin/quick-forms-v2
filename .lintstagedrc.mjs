@@ -1,5 +1,5 @@
 export default {
-  "src/**/*.{js,jsx,ts,tsx}": (files) => {
+  "app/**/*.{js,jsx,ts,tsx}": (files) => {
     return [
       `eslint --fix ${files.join(" ")}`,
       `prettier --write ${files.join(" ")}`,
@@ -7,8 +7,4 @@ export default {
   },
   "app/**/*.{css,scss}": ["prettier --write"],
   "{package.json,*.yml,*.yaml,*.md}": ["prettier --write"],
-  "app/**/*.{png,jpeg,jpg,gif,svg}": [
-    // Optional: Add image optimization
-    // "imagemin-lint-staged"
-  ],
 };

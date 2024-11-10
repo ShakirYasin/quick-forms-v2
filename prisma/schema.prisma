@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Form{
+  // Primary key for the form record
+  id Int @id @default(autoincrement())
+  // ID of the user who owns/created this form
+  userId String
+  // Timestamp of when the form was initially created
+  createdAt DateTime @default(now())
+  // Timestamp that automatically updates when any field is modified
+  updatedAt DateTime @updatedAt
+  // Flag to control form visibility and accessibility
+  published Boolean @default(false)
+  // Title/name of the form for display purposes
+  name String
+  // Longer text description explaining the form's purpose
+  description String @default("")
+  // JSON string containing the form's structure, fields, and configuration
+  content String @default("[]")
+
+  // Counter for tracking total form views/visits
+  visits Int @default(0)
+  // Counter for tracking completed form submissions
+  submissions Int @default(0)
+
+  // Unique identifier for public form sharing, auto-generated using UUID
+  shareUrl String @default(uuid())
+
+  // One-to-many relation to form submissions
+  FormSubmission FormSubmission[]
+
+}
+
+model FormSubmission {
+  // Primary key for the submission record
+  id Int @id @default(autoincrement())
+  // Timestamp when the user submitted the form
+  createdAt DateTime @default(now())
+  // Foreign key linking to the parent form
+  formId Int 
+  // Relation to the parent form this submission belongs to
+  form Form @relation(fields: [formId], references: [id])
+
+  // JSON string containing the submitted form data/answers
+  content String   
+}
