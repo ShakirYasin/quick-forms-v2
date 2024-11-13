@@ -8,7 +8,8 @@ interface PageProps {
   };
 }
 
-export const Page: React.FC<PageProps> = async ({ params }) => {
+export const Page: React.FC<PageProps> = async (props) => {
+  const params = await props.params;
   const { id } = params;
   const form = await GetFormById(Number(id));
   if (!form) throw new Error("Form not found");
