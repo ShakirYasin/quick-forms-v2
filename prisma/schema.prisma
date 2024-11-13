@@ -18,7 +18,7 @@ model Form{
   // Primary key for the form record
   id Int @id @default(autoincrement())
   // ID of the user who owns/created this form
-  userId String
+  userId String 
   // Timestamp of when the form was initially created
   createdAt DateTime @default(now())
   // Timestamp that automatically updates when any field is modified
@@ -42,6 +42,8 @@ model Form{
 
   // One-to-many relation to form submissions
   FormSubmission FormSubmission[]
+
+  @@unique([userId, name])
 
 }
 
